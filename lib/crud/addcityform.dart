@@ -1,4 +1,5 @@
 import 'package:citiguide_adminpanel/controllers/citycontroller.dart';
+import 'package:citiguide_adminpanel/crud/citlylisttile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // Update this import path to match your project structure
@@ -9,20 +10,27 @@ class AddCityForm extends StatefulWidget {
 }
 
 class _AddCityFormState extends State<AddCityForm> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _imageLinkController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-
   // Create an instance of AdmincityController
-  final AdmincityController adminCityController =
-      Get.find<AdmincityController>();
+  final AdmincityController adminCityController = AdmincityController();
+  String? key;
+
+  @override
+  void initState() {
+    super.initState();
+    if (Get.arguments != null) {
+      final city = Get.arguments;
+      key = city['key'];
+      adminCityController.nameController.text = city['cname'];
+      adminCityController.imgController.text = city['cimg'];
+      adminCityController.descController.text = city['cdesc'];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add New City'),
+        title: Text(key != null ? 'Edit City' : 'Add New City'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -58,12 +66,12 @@ class _AddCityFormState extends State<AddCityForm> {
 
   Widget buildForm() {
     return Form(
-      key: _formKey,
+      key: adminCityController.cityFormKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
-            controller: _titleController,
+            controller: adminCityController.nameController,
             decoration: InputDecoration(
               labelText: 'Title',
               border: OutlineInputBorder(),
@@ -78,7 +86,7 @@ class _AddCityFormState extends State<AddCityForm> {
           ),
           SizedBox(height: 16.0),
           TextFormField(
-            controller: _imageLinkController,
+            controller: adminCityController.imgController,
             decoration: InputDecoration(
               labelText: 'City Image Link',
               border: OutlineInputBorder(),
@@ -93,7 +101,7 @@ class _AddCityFormState extends State<AddCityForm> {
           ),
           SizedBox(height: 16.0),
           TextFormField(
-            controller: _descriptionController,
+            controller: adminCityController.descController,
             decoration: InputDecoration(
               labelText: 'Description',
               border: OutlineInputBorder(),
@@ -110,14 +118,15 @@ class _AddCityFormState extends State<AddCityForm> {
           SizedBox(height: 32.0),
           ElevatedButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
+              if (adminCityController.cityFormKey.currentState!.validate()) {
                 // Call addCity method from AdmincityController
-                adminCityController.addCity(
-                  cname: _titleController.text,
-                  cimg: _imageLinkController.text,
-                  cdesc: _descriptionController.text,
-                );
-                Get.back(); // Navigate back to the previous page after submission
+                if (key != null) {
+                  adminCityController.updateCity(key!);
+                } else {
+                  adminCityController.addCity();
+                }
+                Get.to(() =>
+                    CitiesScreen()); // Navigate back to the previous page after submission
               }
             },
             child: Padding(

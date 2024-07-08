@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class AdmincityController extends GetxController {
-  late TextEditingController cityController = TextEditingController();
+  late TextEditingController nameController = TextEditingController();
+  late TextEditingController imgController = TextEditingController();
+  late TextEditingController descController = TextEditingController();
   final cityFormKey = GlobalKey<FormState>();
   late RxList<Map<dynamic, dynamic>> citiesRecords =
       <Map<dynamic, dynamic>>[].obs;
@@ -24,10 +26,11 @@ class AdmincityController extends GetxController {
     citiesRecords.clear();
 
     // Iterate through children and add values to the list
-    for (var element in event.snapshot.children) {
+    event.snapshot.children.forEach((element) {
       Map<dynamic, dynamic> data = element.value as Map<dynamic, dynamic>;
+      data['key'] = element.key;
       citiesRecords.add(data);
-    }
+    });
   }
 
   Future<void> deleteCity(String cityName) async {
@@ -39,11 +42,7 @@ class AdmincityController extends GetxController {
     Get.snackbar("Success", "City Deleted");
   }
 
-  Future<void> addCity({
-    required String cname,
-    required String cimg,
-    required String cdesc,
-  }) async {
+  Future<void> addCity() async {
     // Add City and it should be unique
     final DatabaseReference database =
         FirebaseDatabase.instance.ref("cityList");
@@ -51,7 +50,7 @@ class AdmincityController extends GetxController {
     // Check if city already exists
     if (await database
         .orderByChild("cname")
-        .equalTo(cname)
+        .equalTo(nameController.text)
         .once()
         .then((value) => value.snapshot.exists)) {
       Get.snackbar("Error", "City Already Exists");
@@ -59,12 +58,36 @@ class AdmincityController extends GetxController {
     }
 
     database.push().set({
-      "cname": cname,
-      "cimg": cimg,
-      "cdesc": cdesc,
+      "cname": nameController.text,
+      "cimg": imgController.text,
+      "cdesc": descController.text,
+    });
+    clearControllers();
+    Get.snackbar("Success", "City Added");
+
+    fetchCities();
+
+    // fetchCities(); // Refresh the list after adding the city
+  }
+
+  Future<void> updateCity(String key) async {
+    final DatabaseReference database =
+        FirebaseDatabase.instance.ref("cityList/$key");
+
+    database.update({
+      "cname": nameController.text,
+      "cimg": imgController.text,
+      "cdesc": descController.text,
     });
 
-    fetchCities(); // Refresh the list after adding the city
-    Get.snackbar("Success", "City Added");
+    clearControllers();
+    fetchCities();
+    Get.snackbar("Success", "Tile Updated");
+  }
+
+  void clearControllers() {
+    nameController.clear();
+    imgController.clear();
+    descController.clear();
   }
 }

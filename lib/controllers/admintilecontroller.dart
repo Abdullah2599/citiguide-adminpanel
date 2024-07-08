@@ -34,6 +34,7 @@ class AdminTileController extends GetxController {
     // Iterate through children and add values to the list
     event.snapshot.children.forEach((element) {
       Map<dynamic, dynamic> data = element.value as Map<dynamic, dynamic>;
+      data['key'] = element.key;
       tilesRecords.add(data);
     });
   }

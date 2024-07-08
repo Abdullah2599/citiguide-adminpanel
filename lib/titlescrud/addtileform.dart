@@ -1,4 +1,5 @@
 import 'package:citiguide_adminpanel/controllers/admintilecontroller.dart';
+import 'package:citiguide_adminpanel/titlescrud/tilelistscree.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +34,7 @@ class _AddTileFormState extends State<AddTileForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add New Tile'),
+        title: Text(key != null ? 'Edit Tile' : 'Add New Tile'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -181,7 +182,8 @@ class _AddTileFormState extends State<AddTileForm> {
                 } else {
                   tileController.addTile();
                 }
-                Get.back(); // Navigate back to the previous page after submission
+                Get.to(() =>
+                    TileListScreen()); // Navigate back to the previous page after submission
               }
             },
             child: Padding(

@@ -1,77 +1,77 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+// class MyWidget extends StatelessWidget {
+//   const MyWidget({super.key});
 
-  final defaultPadding = 16.0;
+//   final defaultPadding = 16.0;
 
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        primary: false,
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            // DashBoardHeader(),
-            // Gap(defaultPadding),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "My Products",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          ),
-                          ElevatedButton.icon(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: defaultPadding * 1.5,
-                                vertical: defaultPadding,
-                              ),
-                            ),
-                            onPressed: () {
-                              // showAddProductForm(context, null);
-                            },
-                            icon: Icon(Icons.add),
-                            label: Text("Add New"),
-                          ),
-                          // Gap(20),
-                          IconButton(
-                              onPressed: () {
-                                //TODO: should complete call getAllProduct
-                              },
-                              icon: Icon(Icons.refresh)),
-                        ],
-                      ),
-                      // Gap(defaultPadding),
-                      // ProductSummerySection(),
-                      // Gap(defaultPadding),
-                      // ProductListSection(),
-                    ],
-                  ),
-                ),
-                SizedBox(width: defaultPadding),
-                // Expanded(
-                //   flex: 2,
-                //   child: OrderDetailsSection(),
-                // ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: SingleChildScrollView(
+//         primary: false,
+//         padding: EdgeInsets.all(8.0),
+//         child: Column(
+//           children: [
+//             // DashBoardHeader(),
+//             // Gap(defaultPadding),
+//             Row(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Expanded(
+//                   flex: 5,
+//                   child: Column(
+//                     children: [
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: [
+//                           Expanded(
+//                             child: Text(
+//                               "My Products",
+//                               style: Theme.of(context).textTheme.titleMedium,
+//                             ),
+//                           ),
+//                           ElevatedButton.icon(
+//                             style: TextButton.styleFrom(
+//                               padding: EdgeInsets.symmetric(
+//                                 horizontal: defaultPadding * 1.5,
+//                                 vertical: defaultPadding,
+//                               ),
+//                             ),
+//                             onPressed: () {
+//                               // showAddProductForm(context, null);
+//                             },
+//                             icon: Icon(Icons.add),
+//                             label: Text("Add New"),
+//                           ),
+//                           // Gap(20),
+//                           IconButton(
+//                               onPressed: () {
+//                                 //TODO: should complete call getAllProduct
+//                               },
+//                               icon: Icon(Icons.refresh)),
+//                         ],
+//                       ),
+//                       // Gap(defaultPadding),
+//                       // ProductSummerySection(),
+//                       // Gap(defaultPadding),
+//                       // ProductListSection(),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: defaultPadding),
+//                 // Expanded(
+//                 //   flex: 2,
+//                 //   child: OrderDetailsSection(),
+//                 // ),
+//               ],
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 
 
