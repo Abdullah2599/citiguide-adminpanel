@@ -1,3 +1,5 @@
+import 'package:citiguide_adminpanel/Auth/loginpage.dart';
+import 'package:citiguide_adminpanel/crud/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +25,7 @@ class LoginController extends GetxController {
       if (idTokenResult.claims != null &&
           idTokenResult.claims!['admin'] == true) {
         loader.value = false;
-        Get.offAllNamed('/adminHomePage');
+        Get.to(WelcomeScreen());
       } else {
         loader.value = false;
         Get.snackbar('Error', 'You do not have admin rights.');
@@ -43,7 +45,7 @@ class LoginController extends GetxController {
   Future<void> signOut() async {
     try {
       await _auth.signOut();
-      Get.offAllNamed('/login'); // Redirect to the login page
+      Get.to(LoginPage()); // Redirect to the login page
     } catch (e) {
       Get.snackbar('Error', 'Failed to sign out: $e');
     }

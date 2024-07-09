@@ -62,10 +62,10 @@ class AdmincityController extends GetxController {
       "cimg": imgController.text,
       "cdesc": descController.text,
     });
+    fetchCities();
     clearControllers();
     Get.snackbar("Success", "City Added");
 
-    fetchCities();
 
     // fetchCities(); // Refresh the list after adding the city
   }
@@ -80,8 +80,8 @@ class AdmincityController extends GetxController {
       "cdesc": descController.text,
     });
 
-    clearControllers();
     fetchCities();
+    clearControllers();
     Get.snackbar("Success", "Tile Updated");
   }
 

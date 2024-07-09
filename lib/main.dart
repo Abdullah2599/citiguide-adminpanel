@@ -43,15 +43,16 @@ class MyApp extends StatelessWidget {
     }
 
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Responsive Table Dem',
       home: home,
-      initialRoute: '/',
-      getPages: [
-        GetPage(name: '/', page: () => LoginPage()),
-        GetPage(
-            name: '/adminHomePage',
-            page: () => WelcomeScreen()), // Add your admin home page here
-      ],
+      // initialRoute: '/',
+      // getPages: [
+      //   GetPage(name: '/', page: () => LoginPage()),
+      //   GetPage(
+      //       name: '/adminHomePage',
+      //       page: () => WelcomeScreen()), // Add your admin home page here
+      // ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
