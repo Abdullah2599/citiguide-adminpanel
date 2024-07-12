@@ -74,6 +74,7 @@ class AdminTileController extends GetxController {
       "price": int.parse(priceController.text),
       "offer":
           offerController.text.split(",") // Assuming offers are comma-separated
+      'likes': [],  
     });
 
     clearControllers();
