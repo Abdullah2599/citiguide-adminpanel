@@ -72,9 +72,9 @@ class AdminTileController extends GetxController {
       "imageurl": imageurlController.text,
       "location": locationController.text,
       "price": int.parse(priceController.text),
-      "offer":
-          offerController.text.split(",") // Assuming offers are comma-separated
-      'likes': [],  
+      "offer": offerController.text
+          .split(","), // Assuming offers are comma-separated
+      'likes': [],
     });
 
     clearControllers();
