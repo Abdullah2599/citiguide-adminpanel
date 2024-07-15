@@ -2,6 +2,7 @@ import 'package:citiguide_adminpanel/controllers/admintilecontroller.dart';
 import 'package:citiguide_adminpanel/titlescrud/tilelistscree.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class AddTileForm extends StatefulWidget {
   @override
@@ -11,6 +12,36 @@ class AddTileForm extends StatefulWidget {
 class _AddTileFormState extends State<AddTileForm> {
   final AdminTileController tileController = Get.put(AdminTileController());
   String? key;
+  List<String> selectedOffers = [];
+
+  final List<String> offers = [
+    'Fee Dining',
+    'Bar',
+    'Parking',
+    'Fast Food',
+    'WiFi',
+    'Pool',
+    'Games',
+    'Museum',
+    'Cafe',
+    'Library',
+    'Zoo',
+    'ATM',
+    'Subway',
+    'Air Conditioned',
+    'Shopping',
+    'Food Stalls',
+    'Mosque',
+    'Church',
+    'Temple',
+    'Child Care',
+    'Playing Area',
+    'Tickets',
+    'Hiking',
+    'Farm Houses',
+    'Cruise',
+    'Park',
+  ];
 
   @override
   void initState() {
@@ -26,7 +57,7 @@ class _AddTileFormState extends State<AddTileForm> {
       tileController.imageurlController.text = tile['imageurl'];
       tileController.locationController.text = tile['location'];
       tileController.priceController.text = tile['price'].toString();
-      tileController.offerController.text = (tile['offer'] as List).join(',');
+      selectedOffers = List<String>.from(tile['offer'] ?? []);
     }
   }
 
@@ -162,21 +193,34 @@ class _AddTileFormState extends State<AddTileForm> {
               return null;
             },
           ),
-          buildTextFormField(
-            controller: tileController.offerController,
-            label: 'Offer (comma separated)',
-            icon: Icons.local_offer,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter offers';
-              }
-              return null;
-            },
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: MultiSelectDialogField(
+              items: offers
+                  .map((offer) => MultiSelectItem<String>(offer, offer))
+                  .toList(),
+              initialValue: selectedOffers,
+              title: Text("Offers"),
+              listType: MultiSelectListType.CHIP,
+              onConfirm: (values) {
+                setState(() {
+                  selectedOffers = values.cast<String>();
+                });
+              },
+              chipDisplay: MultiSelectChipDisplay(
+                onTap: (value) {
+                  setState(() {
+                    selectedOffers.remove(value);
+                  });
+                },
+              ),
+            ),
           ),
           SizedBox(height: 32.0),
           ElevatedButton(
             onPressed: () {
               if (tileController.tileFormKey.currentState!.validate()) {
+                tileController.offerController.text = selectedOffers.join(",");
                 if (key != null) {
                   tileController.updateTile(key!);
                 } else {

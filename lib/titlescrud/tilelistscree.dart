@@ -1,6 +1,7 @@
 import 'package:citiguide_adminpanel/titlescrud/addtileform.dart';
 import 'package:citiguide_adminpanel/controllers/admintilecontroller.dart';
 import 'package:citiguide_adminpanel/Widgets/drawer.dart';
+import 'package:citiguide_adminpanel/titlescrud/tilesdetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -97,7 +98,20 @@ class TileListScreen extends StatelessWidget {
                         const SizedBox(width: 8),
                         ElevatedButton(
                           onPressed: () {
-                            // Details action
+                            showDialog(
+                              context: context,
+                              builder: (context) => TileDetailsDialog(
+                                title: tile['title'] ?? "",
+                                category: tile['category'] ?? "",
+                                city: tile['city'] ?? "",
+                                contact: tile['contact'] ?? "",
+                                description: tile['desc'] ?? "",
+                                imageUrl: tile['imageurl'] ?? "",
+                                location: tile['location'] ?? "",
+                                price: tile['price'] ?? 0,
+                                offers: List<String>.from(tile['offer'] ?? []),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue),
@@ -170,7 +184,20 @@ class TileListScreen extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.info),
                   onPressed: () {
-                    // Details action
+                    showDialog(
+                      context: context,
+                      builder: (context) => TileDetailsDialog(
+                        title: tile['title'] ?? "",
+                        category: tile['category'] ?? "",
+                        city: tile['city'] ?? "",
+                        contact: tile['contact'] ?? "",
+                        description: tile['desc'] ?? "",
+                        imageUrl: tile['imageurl'] ?? "",
+                        location: tile['location'] ?? "",
+                        price: tile['price'] ?? 0,
+                        offers: List<String>.from(tile['offer'] ?? []),
+                      ),
+                    );
                   },
                 ),
                 IconButton(

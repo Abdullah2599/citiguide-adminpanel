@@ -29,6 +29,7 @@ class AdmincityController extends GetxController {
     event.snapshot.children.forEach((element) {
       Map<dynamic, dynamic> data = element.value as Map<dynamic, dynamic>;
       data['key'] = element.key;
+      data['cdesc'] = data['cdesc'] ?? "";
       citiesRecords.add(data);
     });
   }
@@ -62,10 +63,9 @@ class AdmincityController extends GetxController {
       "cimg": imgController.text,
       "cdesc": descController.text,
     });
-    fetchCities();
     clearControllers();
+    fetchCities();
     Get.snackbar("Success", "City Added");
-
 
     // fetchCities(); // Refresh the list after adding the city
   }
@@ -77,7 +77,7 @@ class AdmincityController extends GetxController {
     database.update({
       "cname": nameController.text,
       "cimg": imgController.text,
-      "cdesc": descController.text,
+      "cdesc": descController.text.isNotEmpty ? descController.text : "",
     });
 
     fetchCities();

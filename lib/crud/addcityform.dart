@@ -11,7 +11,8 @@ class AddCityForm extends StatefulWidget {
 
 class _AddCityFormState extends State<AddCityForm> {
   // Create an instance of AdmincityController
-  final AdmincityController adminCityController = AdmincityController();
+  final AdmincityController adminCityController =
+      Get.put(AdmincityController());
   String? key;
 
   @override

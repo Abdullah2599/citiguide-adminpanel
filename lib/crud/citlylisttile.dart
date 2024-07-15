@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:citiguide_adminpanel/Widgets/drawer.dart';
 import 'package:citiguide_adminpanel/controllers/citycontroller.dart';
 import 'package:citiguide_adminpanel/crud/addcityform.dart';
+import 'package:citiguide_adminpanel/crud/newtest.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:your_app/controllers/admin_city_controller.dart';
@@ -27,7 +29,7 @@ class CitiesScreen extends StatelessWidget {
         return LayoutBuilder(
           builder: (context, constraints) {
             if (constraints.maxWidth > 600) {
-              return buildTable();
+              return buildTable(context);
             } else {
               return buildList();
             }
@@ -41,7 +43,7 @@ class CitiesScreen extends StatelessWidget {
     );
   }
 
-  Widget buildTable() {
+  Widget buildTable(context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(8.0),
       child: Center(
@@ -55,12 +57,18 @@ class CitiesScreen extends StatelessWidget {
           rows: adminCityController.citiesRecords.map((city) {
             return DataRow(cells: [
               DataCell(Text(city["cname"] ?? "")),
-              DataCell(Image.network(
-                city["cimg"] ?? "",
-                width: 100,
-                height: 75,
-                fit: BoxFit.cover,
-              )),
+              DataCell(
+                CachedNetworkImage(
+                  imageUrl: city["cimg"] ?? "",
+                  width: 100,
+                  height: 75,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+
               DataCell(Text(city["cdesc"] ??
                   "")), // You can add a description field if needed
               DataCell(Row(
@@ -84,7 +92,14 @@ class CitiesScreen extends StatelessWidget {
                   const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () {
-                      // Details action
+                      showDialog(
+                        context: context,
+                        builder: (context) => CityDetailsDialog(
+                          cityName: city['cname'] ?? "",
+                          cityImage: city['cimg'] ?? "",
+                          cityDescription: city['cdesc'] ?? "",
+                        ),
+                      );
                     },
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.blue),
@@ -116,11 +131,13 @@ class CitiesScreen extends StatelessWidget {
         return Card(
           margin: const EdgeInsets.all(8.0),
           child: ListTile(
-            leading: Image.network(
-              city["cimg"] ?? "",
+            leading: CachedNetworkImage(
+              imageUrl: city["cimg"] ?? "",
               width: 50,
               height: 50,
               fit: BoxFit.fill,
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
             title: Text(city["cname"] ?? ""),
             subtitle: Text(city["cdesc"] ??
@@ -144,7 +161,14 @@ class CitiesScreen extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.info),
                   onPressed: () {
-                    // Details action
+                    showDialog(
+                      context: context,
+                      builder: (context) => CityDetailsDialog(
+                        cityName: city['cname'] ?? "",
+                        cityImage: city['cimg'] ?? "",
+                        cityDescription: city['cdesc'] ?? "",
+                      ),
+                    );
                   },
                 ),
                 IconButton(
