@@ -79,17 +79,19 @@ class NotificationFormController extends GetxController {
               .firstWhere((user) => user['email'] == email)['token'];
         }).toList(),
       );
-      resetForm();
+
       // Save notification to Firestore for each selected user
       for (String email in selectedUsers) {
         await saveNotificationToFirestore(email, {
           'title': messageTitle.value,
           'message': messageText.value,
           'timestamp': FieldValue.serverTimestamp(),
+          'isRead': false,
         });
       }
 
       Get.snackbar('Success', 'Notification sent successfully');
+      resetForm();
       Get.off(() => NotificationForm());
     } catch (e) {
       Get.snackbar('Error', 'Failed to send notification: ${e.toString()}');
