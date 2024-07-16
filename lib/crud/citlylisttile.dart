@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:citiguide_adminpanel/Widgets/drawer.dart';
 import 'package:citiguide_adminpanel/controllers/citycontroller.dart';
 import 'package:citiguide_adminpanel/crud/addcityform.dart';
-import 'package:citiguide_adminpanel/crud/newtest.dart';
+import 'package:citiguide_adminpanel/crud/citydetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:your_app/controllers/admin_city_controller.dart';

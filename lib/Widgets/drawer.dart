@@ -1,4 +1,5 @@
 import 'package:citiguide_adminpanel/Auth/loginpage.dart';
+import 'package:citiguide_adminpanel/Notifications/addnotification.dart';
 import 'package:citiguide_adminpanel/controllers/logincontroller.dart';
 import 'package:citiguide_adminpanel/crud/citlylisttile.dart';
 import 'package:citiguide_adminpanel/crud/welcome.dart';
@@ -44,9 +45,9 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => Get.to(() => TileListScreen()),
           ),
           ListTile(
-            leading: Icon(Icons.verified_user),
-            title: Text('others/Users'),
-            onTap: () {},
+            leading: Icon(Icons.notification_add),
+            title: Text('Notifications'),
+            onTap: () => Get.to(() => NotificationForm()),
           ),
           ListTile(
             leading: Icon(Icons.logout),

@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
 
 // Replace the following line with the path to your service account key file
-const serviceAccount = require('./citiguide-32c72-firebase-adminsdk-5gcg2-c110514d29.json');
+const serviceAccount = require('./assets/citiguide-32c72-firebase-adminsdk-5gcg2-966b38b03e.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)

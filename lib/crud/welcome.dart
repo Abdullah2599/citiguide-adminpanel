@@ -11,8 +11,16 @@ class WelcomeScreen extends StatelessWidget {
           title: Text('Cities'),
         ),
         drawer: CustomDrawer(),
-        body: Center(
-          child: Text('Welcome...'),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Center(
+              child: Text(
+                'Welcome, Admin...',
+                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
         ));
   }
 }
