@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'package:citiguide_adminpanel/Notifications/addnotification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:googleapis_auth/auth_io.dart';
 
 class NotificationFormController extends GetxController {
@@ -22,6 +24,7 @@ class NotificationFormController extends GetxController {
   void onInit() {
     super.onInit();
     fetchUsersData();
+    resetForm();
   }
 
   Future<void> fetchUsersData() async {
@@ -77,12 +80,31 @@ class NotificationFormController extends GetxController {
         }).toList(),
       );
       resetForm();
+      // Save notification to Firestore for each selected user
+      for (String email in selectedUsers) {
+        await saveNotificationToFirestore(email, {
+          'title': messageTitle.value,
+          'message': messageText.value,
+          'timestamp': FieldValue.serverTimestamp(),
+        });
+      }
+
       Get.snackbar('Success', 'Notification sent successfully');
+      Get.off(() => NotificationForm());
     } catch (e) {
       Get.snackbar('Error', 'Failed to send notification: ${e.toString()}');
     } finally {
       isLoading.value = false;
     }
+  }
+
+  Future<void> saveNotificationToFirestore(
+      String email, Map<String, dynamic> notification) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(email)
+        .collection('notifications')
+        .add(notification);
   }
 
   void resetForm() {

@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Responsive Table Dem',
+      title: 'CitiGuide Admin Panel',
       home: home,
       // initialRoute: '/',
       // getPages: [
