@@ -65,7 +65,7 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - assets/citiguide-32c72-firebase-adminsdk-5gcg2-966b38b03e.json
+    - assets/citiguide-32c72-firebase-adminsdk-5gcg2-e4b6171e8c.json
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
