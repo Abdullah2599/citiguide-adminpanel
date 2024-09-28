@@ -1,6 +1,6 @@
 {
-    "name": "citiguide_adminpanel",
-    "short_name": "citiguide_adminpanel",
+    "name": "citinavigator_adminpanel",
+    "short_name": "citinavigator_adminpanel",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

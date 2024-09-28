@@ -6,10 +6,14 @@ class EventsController extends GetxController {
   late TextEditingController titleController = TextEditingController();
   late TextEditingController imgController = TextEditingController();
   late TextEditingController descController = TextEditingController();
-  late TextEditingController contactController = TextEditingController();
+  var statusController = ''.obs;
   late TextEditingController cityController = TextEditingController();
+  late TextEditingController dateController = TextEditingController();
+  late TextEditingController timeController = TextEditingController();
+  late TextEditingController priceController = TextEditingController();
   final eventFormKey = GlobalKey<FormState>();
-  late RxList<Map<dynamic, dynamic>> eventsRecords = <Map<dynamic, dynamic>>[].obs;
+  late RxList<Map<dynamic, dynamic>> eventsRecords =
+      <Map<dynamic, dynamic>>[].obs;
 
   @override
   void onInit() {
@@ -43,13 +47,25 @@ class EventsController extends GetxController {
   }
 
   Future<void> addEvent() async {
+    // print(titleController.text);
+    // print(priceController.text);
+    // print(statusController.value);
+    // print(timeController.text);
+    // print(dateController.text);
+    // print(imgController.text);
+    // print(descController.text);
+    // print(cityController.text);
+
     final DatabaseReference database = FirebaseDatabase.instance.ref("events");
 
     database.push().set({
       "title": titleController.text,
+      "price": int.parse(priceController.text),
+      "status": statusController.value,
+      "time": timeController.text,
+      "date": dateController.text,
       "imageurl": imgController.text,
       "description": descController.text,
-      "contact": contactController.text,
       "city": cityController.text,
     });
     clearControllers();
@@ -58,13 +74,17 @@ class EventsController extends GetxController {
   }
 
   Future<void> updateEvent(String key) async {
-    final DatabaseReference database = FirebaseDatabase.instance.ref("events/$key");
+    final DatabaseReference database =
+        FirebaseDatabase.instance.ref("events/$key");
 
     database.update({
       "title": titleController.text,
+      "price": int.parse(priceController.text),
+      "status": statusController.value,
+      "time": timeController.text,
+      "date": dateController.text,
       "imageurl": imgController.text,
       "description": descController.text,
-      "contact": contactController.text,
       "city": cityController.text,
     });
 
@@ -77,7 +97,10 @@ class EventsController extends GetxController {
     titleController.clear();
     imgController.clear();
     descController.clear();
-    contactController.clear();
+    dateController.clear();
+    timeController.clear();
+    statusController.value = '';
+    priceController.clear();
     cityController.clear();
   }
 }

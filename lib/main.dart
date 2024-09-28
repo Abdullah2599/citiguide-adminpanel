@@ -1,11 +1,6 @@
 import 'package:citiguide_adminpanel/Auth/loginpage.dart';
-import 'package:citiguide_adminpanel/controllers/logincontroller.dart';
-import 'package:citiguide_adminpanel/controllers/logincontroller.dart';
-import 'package:citiguide_adminpanel/crud/citlylisttile.dart';
-import 'package:citiguide_adminpanel/crud/addcityform.dart';
 import 'package:citiguide_adminpanel/crud/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,7 +39,7 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'CitiGuide Admin Panel',
+      title: 'City Navigator Admin Panel',
       home: home,
       // initialRoute: '/',
       // getPages: [

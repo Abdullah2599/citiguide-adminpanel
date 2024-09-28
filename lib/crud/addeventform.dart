@@ -20,8 +20,11 @@ class _EventsFormState extends State<EventsForm> {
       eventsController.titleController.text = event['title'];
       eventsController.imgController.text = event['imageurl'];
       eventsController.descController.text = event['description'];
-      eventsController.contactController.text = event['contact'];
+      eventsController.statusController.value = event['status'];
       eventsController.cityController.text = event['city'];
+      eventsController.dateController.text = event['date'];
+      eventsController.timeController.text = event['time'];
+      eventsController.priceController.text = event['price'].toString();
     }
   }
 
@@ -112,14 +115,14 @@ class _EventsFormState extends State<EventsForm> {
           ),
           const SizedBox(height: 16.0),
           TextFormField(
-            controller: eventsController.contactController,
+            controller: eventsController.priceController,
             decoration: InputDecoration(
-              labelText: 'Contact',
+              labelText: 'Price',
               border: OutlineInputBorder(),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter a contact';
+                return 'Please enter a price';
               }
               return null;
             },
@@ -138,9 +141,73 @@ class _EventsFormState extends State<EventsForm> {
               return null;
             },
           ),
+          const SizedBox(height: 16.0),
+          TextFormField(
+            controller: eventsController.dateController,
+            decoration: InputDecoration(
+              labelText: 'Date',
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a date';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16.0),
+          TextFormField(
+            controller: eventsController.timeController,
+            decoration: InputDecoration(
+              labelText: 'Time',
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a date';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16.0),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 20),
+              Obx(() {
+                return SizedBox(
+                  width: 200,
+                  child: DropdownButton<String>(
+                    isExpanded: true,
+                    value: eventsController.statusController.value.isEmpty
+                        ? null
+                        : eventsController.statusController.value,
+                    hint: Text('Select Status'),
+                    items: [
+                      DropdownMenuItem(
+                        value: 'true',
+                        child: Text('Available'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'false',
+                        child: Text('Not Available'),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      if (value != null) {
+                        eventsController.statusController.value = value;
+                        // Update reactive variable
+                      }
+                    },
+                  ),
+                );
+              }),
+            ],
+          ),
           const SizedBox(height: 32.0),
           ElevatedButton(
             onPressed: () {
+              print(key);
               if (eventsController.eventFormKey.currentState!.validate()) {
                 if (key != null) {
                   eventsController.updateEvent(key!);

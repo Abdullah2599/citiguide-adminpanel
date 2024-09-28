@@ -69,15 +69,27 @@ class EventsScreen extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      eventsController.titleController.text = event['title'] ?? "";
-                      eventsController.imgController.text = event['imageurl'] ?? "";
-                      eventsController.descController.text = event['description'] ?? "";
-                      eventsController.contactController.text = event['contact'] ?? "";
-                      eventsController.cityController.text = event['city'] ?? "";
+                      eventsController.titleController.text =
+                          event['title'] ?? "";
+                      eventsController.imgController.text =
+                          event['imageurl'] ?? "";
+                      eventsController.descController.text =
+                          event['description'] ?? "";
+                      eventsController.statusController.value =
+                          event['status'] ?? "";
+                      eventsController.cityController.text =
+                          event['city'] ?? "";
+                      eventsController.dateController.text =
+                          event['date'] ?? "";
+                      eventsController.timeController.text =
+                          event['time'] ?? "";
+                      eventsController.priceController.text =
+                          event['price'].toString();
 
                       Get.to(() => EventsForm(), arguments: event);
                     },
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                     child: const Text('Edit'),
                   ),
                   const SizedBox(width: 8),
@@ -85,7 +97,8 @@ class EventsScreen extends StatelessWidget {
                     onPressed: () {
                       eventsController.deleteEvent(event["key"] ?? "");
                     },
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
                     child: const Text('Delete'),
                   ),
                 ],
@@ -121,11 +134,19 @@ class EventsScreen extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.edit),
                   onPressed: () {
-                    eventsController.titleController.text = event['title'] ?? "";
-                    eventsController.imgController.text = event['imageurl'] ?? "";
-                    eventsController.descController.text = event['description'] ?? "";
-                    eventsController.contactController.text = event['contact'] ?? "";
+                    eventsController.titleController.text =
+                        event['title'] ?? "";
+                    eventsController.imgController.text =
+                        event['imageurl'] ?? "";
+                    eventsController.descController.text =
+                        event['description'] ?? "";
+                    eventsController.statusController.value =
+                        event['status'] ?? "";
                     eventsController.cityController.text = event['city'] ?? "";
+                    eventsController.dateController.text = event['date'] ?? "";
+                    eventsController.timeController.text = event['time'] ?? "";
+                    eventsController.priceController.text =
+                        event['price'].toString();
 
                     Get.to(() => EventsForm(), arguments: event);
                   },

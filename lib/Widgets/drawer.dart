@@ -3,6 +3,7 @@ import 'package:citiguide_adminpanel/Notifications/addnotification.dart';
 import 'package:citiguide_adminpanel/controllers/logincontroller.dart';
 import 'package:citiguide_adminpanel/crud/citlylisttile.dart';
 import 'package:citiguide_adminpanel/crud/eventslisttile.dart';
+import 'package:citiguide_adminpanel/crud/orderlist.dart';
 import 'package:citiguide_adminpanel/crud/welcome.dart';
 import 'package:citiguide_adminpanel/titlescrud/tilelistscree.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,6 +35,11 @@ class CustomDrawer extends StatelessWidget {
             leading: Icon(Icons.home),
             title: Text('Home'),
             onTap: () => Get.to(() => WelcomeScreen()),
+          ),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Orders'),
+            onTap: () => Get.to(() => OrdersListScreen()),
           ),
           ListTile(
             leading: Icon(Icons.location_city),
